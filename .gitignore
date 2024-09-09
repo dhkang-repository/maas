@@ -1,9 +1,12 @@
 HELP.md
 .gradle
 build/
+src/main/resources/secret.yml
+
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+
 
 ### STS ###
 .apt_generated
