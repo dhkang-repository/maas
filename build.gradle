@@ -1,0 +1,83 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.3.3'
+    id 'io.spring.dependency-management' version '1.1.6'
+}
+
+group = 'com.xmass'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    set('springCloudVersion', "2023.0.3")
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+
+    // 외부 API
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+
+    // Hibernate (JPA를 통한 ORM)
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // Security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // WEB
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // Spring Cloud (API Gateway 또는 마이크로서비스 아키텍처에 유용)
+    implementation 'org.springframework.cloud:spring-cloud-starter-gateway-mvc'
+
+    // OpenFeign (다른 API와의 통신을 쉽게 할 수 있음)
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
+    // REST API와 JSON 데이터 처리
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+
+    // Google Maps API 연동 (예시, 경로 최적화 기능에 필요)
+    implementation 'com.google.maps:google-maps-services:0.18.0'
+
+    // Lombok (코드 간결화)
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // 데이터베이스 (MySQL, MariaDB 등 선택 가능)
+    // runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+    runtimeOnly 'mysql:mysql-connector-java:8.0.32'
+
+
+    // H2 Database (테스트용)
+    testImplementation 'com.h2database:h2'
+
+    // 테스트 의존성
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
