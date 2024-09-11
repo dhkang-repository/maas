@@ -1,6 +1,6 @@
-package com.xmass.cloud.infrastructure.repository;
+package com.xmass.cloud.domain.transport.repository;
 
-import com.xmass.cloud.domain.transport.Transport;
+import com.xmass.cloud.domain.transport.model.Transport;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

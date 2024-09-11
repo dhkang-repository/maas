@@ -1,8 +1,8 @@
 package com.xmass.cloud.application;
 
-import com.xmass.cloud.domain.transport.Transport;
+import com.xmass.cloud.domain.transport.model.Transport;
 import com.xmass.cloud.infrastructure.exception.ResourceNotFound;
-import com.xmass.cloud.infrastructure.repository.TransportRepository;
+import com.xmass.cloud.domain.transport.repository.TransportRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

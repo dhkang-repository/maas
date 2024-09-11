@@ -1,4 +1,4 @@
-package com.xmass.cloud.domain.route;
+package com.xmass.cloud.domain.route.model;
 
 public class RouteSummary {
     POI origin;

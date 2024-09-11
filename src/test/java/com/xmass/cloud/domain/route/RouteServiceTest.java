@@ -1,5 +1,6 @@
 package com.xmass.cloud.domain.route;
 
+import com.xmass.cloud.domain.route.service.RouteService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

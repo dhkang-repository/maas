@@ -1,6 +1,6 @@
 package com.xmass.cloud.web.controller;
 
-import com.xmass.cloud.domain.route.RouteService;
+import com.xmass.cloud.domain.route.service.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

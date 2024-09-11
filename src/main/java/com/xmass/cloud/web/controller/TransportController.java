@@ -1,7 +1,7 @@
 package com.xmass.cloud.web.controller;
 
 import com.xmass.cloud.application.TransportApplication;
-import com.xmass.cloud.domain.transport.Transport;
+import com.xmass.cloud.domain.transport.model.Transport;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

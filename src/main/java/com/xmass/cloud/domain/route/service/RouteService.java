@@ -1,24 +1,20 @@
-package com.xmass.cloud.domain.route;
+package com.xmass.cloud.domain.route.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.xmass.cloud.infrastructure.repository.KakaoRouteRepository;
+import com.xmass.cloud.domain.route.repository.RouteRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class RouteService {
 
-    private final KakaoRouteRepository kakaoRouteRepository;
+    private final RouteRepository routeRepository;
 
     public String getRecommendedRoute(String origin, String destination) {
-        // Google Maps API로부터 경로 데이터를 가져옴
-        ResponseEntity<String> response = kakaoRouteRepository.get(origin, destination, "");
 
-        // 결과를 가공하여 반환
-        return processDirectionsResponse(response.getBody());
+        return null;
     }
 
     private String processDirectionsResponse(String response) {

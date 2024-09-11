@@ -1,4 +1,4 @@
-package com.xmass.cloud.domain.route;
+package com.xmass.cloud.domain.route.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

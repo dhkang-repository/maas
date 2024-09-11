@@ -1,4 +1,4 @@
-package com.xmass.cloud.domain.transport;
+package com.xmass.cloud.domain.transport.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
