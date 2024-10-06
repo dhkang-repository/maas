@@ -4,6 +4,8 @@ build/
 src/main/resources/secret.yml
 
 src/main/resources/secret
+src/main/resources/accesskey
+src/main/resources/secretkey
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/

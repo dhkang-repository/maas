@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class TransportApplication {
+public class OrderApplication {
     private final TransportRepository transportRepository;
 
     public void saveTransport(Transport transport) {

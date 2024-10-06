@@ -18,8 +18,7 @@ spring:
             request-timeout: 5000ms # ?? ???? ?? (5?)
 
 api:
-    header: KakaoAK
-    directions: https://apis-navi.kakaomobility.com/v1/directions
+    url: https://api.upbit.com
 
 server:
     reactive:
@@ -41,6 +40,8 @@ logging:
     level:
         org.springframework.web.reactive.function.client: DEBUG
     config: classpath:log4j2/log4j2-local.xml
+
+
 
 management:
     endpoints:
