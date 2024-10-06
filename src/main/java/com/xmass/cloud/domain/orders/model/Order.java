@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class OrderClose {
+public class Order {
     @JsonProperty("uuid")
     private String uuid; // 주문의 고유 아이디
     @JsonProperty("side")
