@@ -1,9 +1,13 @@
 package com.xmass.cloud.infrastructure.util;
 
+import com.xmass.cloud.infrastructure.event.WebSocketDataEvent;
+import com.xmass.cloud.infrastructure.event.WebSocketEventListener;
 import com.xmass.cloud.infrastructure.vo.SecretKeyInfo;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.socket.WebSocketMessage;
 import org.springframework.web.reactive.socket.client.ReactorNettyWebSocketClient;
 import reactor.core.publisher.Mono;
@@ -11,11 +15,12 @@ import reactor.core.publisher.Mono;
 import java.net.URI;
 import java.time.Duration;
 
-@Configuration
+@Component
 @RequiredArgsConstructor
 public class CurrentTickEventSubscriber {
 
     private final SecretKeyInfo secretKeyInfo;
+    private final ApplicationEventPublisher eventPublisher;
     private static final String UPBIT_WS_URL = "wss://api.upbit.com/websocket/v1";
 
     @PostConstruct
@@ -35,7 +40,10 @@ public class CurrentTickEventSubscriber {
                             .thenMany(
                                     session.receive()
                                             .map(WebSocketMessage::getPayloadAsText)
-                                            .doOnNext(System.out::println) // 수신한 메시지 출력
+                                            .doOnNext(message -> {
+                                                // 데이터를 이벤트로 발행
+                                                eventPublisher.publishEvent(new WebSocketDataEvent(this, message));
+                                            })
                             )
                             .then()
                             .block(Duration.ofSeconds(10)); // 수신 시간 설정
