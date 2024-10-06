@@ -1,4 +1,4 @@
-package com.xmass.cloud.util;
+package com.xmass.cloud.infrastructure.util;
 
 import com.xmass.cloud.infrastructure.vo.SecretKeyInfo;
 import io.jsonwebtoken.Jwts;
