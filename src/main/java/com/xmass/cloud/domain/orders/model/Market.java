@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.xmass.cloud.domain.account.model.Account;
 import lombok.Data;
 
-import java.util.HashMap;
 import java.util.List;
 
 @Data
@@ -25,9 +24,9 @@ public class Market {
     private List<String> askTypes;
 
     @JsonProperty("bid")
-    private Bid bid;
+    private Quote bid;
     @JsonProperty("ask")
-    private Ask ask;
+    private Quote ask;
 
     @JsonProperty("max_total")
     private String maxTotal;

@@ -62,6 +62,7 @@
     <Loggers>
         <!-- Root Logger 정의 -->
         <Root level="INFO" additivity="false">
+            <AppenderRef ref="ConsoleAppender"/>
             <AppenderRef ref="SlackAppender">
                 <MarkerFilter marker="SLACK" onMatch="ACCEPT" onMismatch="DENY"/>
             </AppenderRef>

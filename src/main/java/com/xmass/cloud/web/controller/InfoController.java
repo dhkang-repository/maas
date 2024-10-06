@@ -3,6 +3,7 @@ package com.xmass.cloud.web.controller;
 import com.xmass.cloud.domain.account.model.Account;
 import com.xmass.cloud.domain.account.repository.AccountRepository;
 import com.xmass.cloud.domain.orders.model.OrderChance;
+import com.xmass.cloud.domain.orders.model.OrderClose;
 import com.xmass.cloud.domain.orders.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,5 +37,18 @@ public class InfoController {
         }).block();
         System.out.println(block);
         return block;
+    }
+
+    @GetMapping("/orders/closed")
+    public List<OrderClose> closeOrders(@RequestParam(value = "market", required = true) String market) {
+        Mono<List<OrderClose>> closedOrders = orderRepository.getClosedOrders(market);
+        List<OrderClose> block = closedOrders.doOnError(e->{
+            e.printStackTrace();
+            String message = e.getMessage();
+            System.out.println(message);
+        }).block();
+        System.out.println(block);
+        return block;
+
     }
 }
