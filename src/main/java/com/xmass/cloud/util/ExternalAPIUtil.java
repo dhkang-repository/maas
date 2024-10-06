@@ -74,14 +74,9 @@ public class ExternalAPIUtil {
 
 
     public Mono get(String path,
-                        String market,
-                        HashMap<String, List<String>> map,
-                        ParameterizedTypeReference retunType) {
-
-        // Query parameters 설정
-        Map<String, String> params = new HashMap<>();
-        params.put("market", "KRW-" + market);
-
+                    HashMap<String, String> params,
+                    HashMap<String, List<String>> map,
+                    ParameterizedTypeReference retunType) {
         // Query string 생성
         String queryString = generateQueryString(params, map);
 
