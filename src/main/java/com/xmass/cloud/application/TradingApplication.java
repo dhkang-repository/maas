@@ -1,8 +1,7 @@
 package com.xmass.cloud.application;
 
-import com.xmass.cloud.domain.trading.service.TradingDTO;
-import com.xmass.cloud.domain.trading.service.TradingStrategy;
-import com.xmass.cloud.web.controller.TestController;
+import com.xmass.cloud.domain.trading.service.IndicatorDTO;
+import com.xmass.cloud.domain.trading.service.IndicatorStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -16,15 +15,15 @@ public class TradingApplication {
     static final Logger LOGGER = LoggerFactory.getLogger(TradingApplication.class);
 
 
-    private final Map<Class, TradingStrategy> strategyMap;
+    private final Map<Class, IndicatorStrategy> strategyMap;
 
-    public TradingApplication(List<TradingStrategy> strategies) {
+    public TradingApplication(List<IndicatorStrategy> strategies) {
         // 각 전략을 Map에 저장, 클래스 이름을 key로 사용
         this.strategyMap = strategies.stream()
                 .collect(Collectors.toMap(s -> s.getClass(), s -> s));
     }
 
-    public TradingDTO calculate(Class<? extends TradingStrategy> policy, List<Double> prices, int period) {
+    public IndicatorDTO calculate(Class<? extends IndicatorStrategy> policy, List<Double> prices, int period) {
         return this.strategyMap.get(policy).calculate(prices, period);
     }
 }

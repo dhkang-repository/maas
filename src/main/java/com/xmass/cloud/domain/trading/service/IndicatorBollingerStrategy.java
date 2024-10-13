@@ -5,10 +5,10 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class TradingBollingerStrategy implements TradingStrategy {
+public class IndicatorBollingerStrategy implements IndicatorStrategy {
 
     @Override
-    public TradingDTO calculate(List<Double> prices, int period) {
+    public IndicatorDTO calculate(List<Double> prices, int period) {
         double ma = prices.stream()
                 .skip(Math.max(0, prices.size() - period))
                 .mapToDouble(Double::doubleValue)
@@ -22,7 +22,7 @@ public class TradingBollingerStrategy implements TradingStrategy {
 
         double stdDev = Math.sqrt(variance);
 
-        return new TradingDTO(new double[] {ma + 2 * stdDev, ma - 2 * stdDev});
+        return new IndicatorDTO(new double[] {ma + 2 * stdDev, ma - 2 * stdDev});
     }
     
 }

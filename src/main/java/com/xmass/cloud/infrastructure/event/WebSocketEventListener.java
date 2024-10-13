@@ -2,7 +2,10 @@ package com.xmass.cloud.infrastructure.event;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xmass.cloud.application.TradingApplication;
-import com.xmass.cloud.domain.trading.service.TradingDTO;
+import com.xmass.cloud.domain.trading.service.IndicatorDTO;
+import com.xmass.cloud.domain.trading.service.MARuleStrategy;
+import com.xmass.cloud.domain.trading.service.RuleDTO;
+import com.xmass.cloud.domain.trading.service.RuleStrategy;
 import com.xmass.cloud.infrastructure.enums.TradingEnum;
 import com.xmass.cloud.domain.global.PriceInfo;
 import lombok.RequiredArgsConstructor;
@@ -54,14 +57,19 @@ public class WebSocketEventListener {
     public void strategy(WebSocketDataEvent event) throws Exception {
         List<Double> prices = priceInfo.getPrices();
         if (!prices.isEmpty() && prices.size() > 20) {
-            TradingDTO ma14 = tradingApplication.calculate(TradingEnum.MA.getStrategy(), prices, 14);
-            TradingDTO ma100 = tradingApplication.calculate(TradingEnum.MA.getStrategy(), prices, 100);
-            TradingDTO blg14 = tradingApplication.calculate(TradingEnum.BLG.getStrategy(), prices, 14);
-            TradingDTO blg100 = tradingApplication.calculate(TradingEnum.BLG.getStrategy(), prices, 100);
-            TradingDTO rsi14 = tradingApplication.calculate(TradingEnum.RSI.getStrategy(), prices, 14);
-            TradingDTO rsi100 = tradingApplication.calculate(TradingEnum.RSI.getStrategy(), prices, 100);
+            IndicatorDTO ma14 = tradingApplication.calculate(TradingEnum.MA.getStrategy(), prices, 14);
+            IndicatorDTO ma100 = tradingApplication.calculate(TradingEnum.MA.getStrategy(), prices, 100);
+            IndicatorDTO blg14 = tradingApplication.calculate(TradingEnum.BLG.getStrategy(), prices, 14);
+            IndicatorDTO blg100 = tradingApplication.calculate(TradingEnum.BLG.getStrategy(), prices, 100);
+            IndicatorDTO rsi14 = tradingApplication.calculate(TradingEnum.RSI.getStrategy(), prices, 14);
+            IndicatorDTO rsi100 = tradingApplication.calculate(TradingEnum.RSI.getStrategy(), prices, 100);
             LOGGER.info("ma14 : {}, blg14 : {}, rsi14 : {}", ma14, blg14, rsi14);
             LOGGER.info("ma100 : {}, blg100 : {}, rsi100 : {}", ma100, blg100, rsi100);
+
+            RuleStrategy maRuleStrategy = new MARuleStrategy(ma14, ma100);
+            RuleDTO estimate = maRuleStrategy.estimate();
+            LOGGER.info("ma estimate : {}", estimate);
+
         } else {
             System.out.println("No price data available.");
         }

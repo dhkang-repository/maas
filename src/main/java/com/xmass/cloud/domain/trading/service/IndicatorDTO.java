@@ -5,15 +5,15 @@ import lombok.ToString;
 
 @ToString
 @Getter
-public class TradingDTO {
+public class IndicatorDTO {
     private double value;
     private double[] values;
 
-    public TradingDTO(double value) {
+    public IndicatorDTO(double value) {
         this.value = value;
     }
 
-    public TradingDTO(double[] values) {
+    public IndicatorDTO(double[] values) {
         this.values = values;
     }
 }
