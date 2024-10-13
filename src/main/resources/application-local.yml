@@ -16,11 +16,24 @@ spring:
     reactor:
         netty:
             request-timeout: 5000ms # ?? ???? ?? (5?)
+    kafka:
+        bootstrap-servers: localhost:9092
+        consumer:
+            group-id: trading-group
+            auto-offset-reset: earliest
+            key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+            value-deserializer: org.apache.kafka.common.serialization.DoubleDeserializer
+        producer:
+            key-serializer: org.apache.kafka.common.serialization.StringSerializer
+            value-serializer: org.apache.kafka.common.serialization.DoubleSerializer
 
 api:
     url: https://api.upbit.com
 
 server:
+    tomcat:
+        mbeanregistry:
+            enabled: true
     reactive:
         netty:
             max-chunk-size: 16KB # ?? ?? ?? ??
@@ -38,13 +51,37 @@ reactor:
             acquire-timeout: 45000 # ?? ?? ?? ?? (45?)
 logging:
     level:
+        com.xmass.cloud.web.controller: DEBUG
         org.springframework.web.reactive.function.client: DEBUG
     config: classpath:log4j2/log4j2-local.xml
 
-
-
 management:
+    server:
+        port: 9090
+    info:
+        java:
+            enabled: true
+        os:
+            enabled: true
+        env:
+            enabled: true
+        git:
+            enabled: true
+    endpoint:
+        health:
+            show-details: always
+        #            show-components: always
+        shutdown:
+            enabled: true
     endpoints:
         web:
             exposure:
-                include: health, metrics, httptrace
+                include: "*"
+                exclude: "env,beans"
+            base-path: "/manage"
+info:
+    app:
+        name: hello-actuator
+        company: dh
+
+

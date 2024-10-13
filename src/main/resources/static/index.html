@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Test</title>
+    <!-- SockJS 라이브러리 추가 -->
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <!-- STOMP 라이브러리 추가 (필요 시) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</head>
+<body>
+<h1>WebSocket Test</h1>
+<script>
+    // WebSocket 연결 설정
+    const socket = new SockJS('http://localhost:8080/ws');
+    const stompClient = Stomp.over(socket);
+
+    stompClient.connect({}, () => {
+        console.log("Connected to WebSocket server");
+
+        // 서버 경로에 대한 구독 설정
+        stompClient.subscribe('/topic/market', (message) => {
+            console.log("Received message:", message.body);
+        });
+    });
+</script>
+</body>
+</html>

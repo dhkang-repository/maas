@@ -1,4 +1,4 @@
-package com.xmass.cloud.infrastructure.vo;
+package com.xmass.cloud.domain.global;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +11,12 @@ import java.io.IOException;
 @Getter
 @Component
 public class SecretKeyInfo {
+
+    /**
+     * @see String serverUrl: upbit server api url
+     * @see String secretKey: upbit secret key
+     * @see String accessKey: upbit access key
+     */
     private final String serverUrl;
     private final String secretKey;
     private final String accessKey;

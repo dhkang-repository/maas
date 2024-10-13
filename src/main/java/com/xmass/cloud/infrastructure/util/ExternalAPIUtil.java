@@ -1,6 +1,6 @@
 package com.xmass.cloud.infrastructure.util;
 
-import com.xmass.cloud.infrastructure.vo.SecretKeyInfo;
+import com.xmass.cloud.domain.global.SecretKeyInfo;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;

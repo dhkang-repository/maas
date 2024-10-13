@@ -7,28 +7,6 @@
 
     <!-- Async Appenders 정의 -->
     <Appenders>
-        <!-- 비동기 파일 출력 (일별로 로그 파일 분할) -->
-        <Async name="AsyncHttpFileAppender">
-            <AppenderRef ref="HttpFileAppender"/>
-        </Async>
-
-        <!-- 비동기 에러 로그 파일 출력 -->
-        <Async name="AsyncErrorFileAppender">
-            <AppenderRef ref="ErrorFileAppender"/>
-        </Async>
-
-        <!-- 실제 콘솔 출력 -->
-        <Console name="ConsoleAppender" target="SYSTEM_OUT">
-            <PatternLayout charset="UTF-8" pattern="${LOG_PATTERN}"/>
-        </Console>
-
-        <!--        <Console name="ErrorConsoleAppender" target="SYSTEM_ERR">-->
-        <!--            <PatternLayout charset="UTF-8" pattern="${LOG_PATTERN}"/>-->
-        <!--            <Filters>-->
-        <!--                <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>-->
-        <!--            </Filters>-->
-        <!--        </Console>-->
-
         <!-- 실제 파일 출력 -->
         <RollingFile name="HttpFileAppender" fileName="${LOG_DIR}/http.log" filePattern="${LOG_DIR}/http-%d{yyyy-MM-dd}.log">
             <PatternLayout charset="UTF-8" pattern="${LOG_PATTERN}"/>
@@ -37,38 +15,67 @@
             </Policies>
         </RollingFile>
 
-        <!-- 실제 에러 로그 파일 출력 -->
-        <RollingFile name="ErrorFileAppender" fileName="${LOG_DIR}/xmass-error.log"
-                     filePattern="${LOG_DIR}/xmass-error-%d{yyyy-MM-dd}.log">
+        <!-- 비동기 파일 출력 (일별로 로그 파일 분할) -->
+        <Async name="AsyncHttpFileAppender">
+            <AppenderRef ref="HttpFileAppender"/>
+        </Async>
+
+        <!-- 비동기 에러 로그 파일 출력 -->
+<!--        <Async name="AsyncErrorFileAppender">-->
+<!--            <AppenderRef ref="ErrorFileAppender"/>-->
+<!--        </Async>-->
+
+        <!-- 실제 콘솔 출력 -->
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
             <PatternLayout charset="UTF-8" pattern="${LOG_PATTERN}"/>
-            <Policies>
-                <TimeBasedTriggeringPolicy/>
-            </Policies>
-            <Filters>
-                <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
-            </Filters>
-        </RollingFile>
+        </Console>
+
+        <Async name="AsyncConsoleAppender">
+            <AppenderRef ref="ConsoleAppender"/>
+        </Async>
+
+        <!--        <Console name="ErrorConsoleAppender" target="SYSTEM_ERR">-->
+        <!--            <PatternLayout charset="UTF-8" pattern="${LOG_PATTERN}"/>-->
+        <!--            <Filters>-->
+        <!--                <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>-->
+        <!--            </Filters>-->
+        <!--        </Console>-->
 
 
-        <SlackAppender name="SlackAppender"
-                       url="https://hooks.slack.com/services/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"
-                       channel="#test"
-                       username="app">
-        </SlackAppender>
+
+        <!-- 실제 에러 로그 파일 출력 -->
+<!--        <RollingFile name="ErrorFileAppender" fileName="${LOG_DIR}/xmass-error.log"-->
+<!--                     filePattern="${LOG_DIR}/xmass-error-%d{yyyy-MM-dd}.log">-->
+<!--            <PatternLayout charset="UTF-8" pattern="${LOG_PATTERN}"/>-->
+<!--            <Policies>-->
+<!--                <TimeBasedTriggeringPolicy/>-->
+<!--            </Policies>-->
+<!--            <Filters>-->
+<!--                <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>-->
+<!--            </Filters>-->
+<!--        </RollingFile>-->
+
+
+<!--        <SlackAppender name="SlackAppender"-->
+<!--                       url="https://hooks.slack.com/services/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"-->
+<!--                       channel="#test"-->
+<!--                       username="app">-->
+<!--        </SlackAppender>-->
 
     </Appenders>
 
     <!-- Loggers 정의 -->
     <Loggers>
         <!-- Root Logger 정의 -->
-        <Root level="INFO" additivity="false">
-            <AppenderRef ref="ConsoleAppender"/>
-            <AppenderRef ref="SlackAppender">
-                <MarkerFilter marker="SLACK" onMatch="ACCEPT" onMismatch="DENY"/>
-            </AppenderRef>
+        <Root level="INFO">
+            <AppenderRef ref="AsyncConsoleAppender" additivity="false" />
+<!--            <AppenderRef ref="SlackAppender">-->
+<!--                <MarkerFilter marker="SLACK" onMatch="ACCEPT" onMismatch="DENY"/>-->
+<!--            </AppenderRef>-->
         </Root>
 
         <Logger name="com.xmass.cloud" level="INFO" additivity="false">
+            <AppenderRef ref="AsyncConsoleAppender" />
             <AppenderRef ref="AsyncHttpFileAppender" >
                 <MarkerFilter marker="HTTP" onMatch="ACCEPT" onMismatch="DENY"/>
             </AppenderRef>

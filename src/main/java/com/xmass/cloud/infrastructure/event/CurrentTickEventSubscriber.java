@@ -1,12 +1,9 @@
-package com.xmass.cloud.infrastructure.util;
+package com.xmass.cloud.infrastructure.event;
 
-import com.xmass.cloud.infrastructure.event.WebSocketDataEvent;
-import com.xmass.cloud.infrastructure.event.WebSocketEventListener;
-import com.xmass.cloud.infrastructure.vo.SecretKeyInfo;
+import com.xmass.cloud.domain.global.SecretKeyInfo;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.socket.WebSocketMessage;
 import org.springframework.web.reactive.socket.client.ReactorNettyWebSocketClient;
@@ -32,7 +29,7 @@ public class CurrentTickEventSubscriber {
                 URI.create(UPBIT_WS_URL),
                 session -> {
                     // WebSocket 연결 후 JSON 형식으로 티켓 및 구독 요청 전송
-                    String subscriptionMessage = "[{\"ticket\":\"test\"},{\"type\":\"ticker\",\"codes\":[\"KRW-BTC\"]}]";
+                    String subscriptionMessage = "[{\"ticket\":\"test\"},{\"type\":\"ticker\",\"codes\":[\"KRW-SHIB\"]}]";
                     WebSocketMessage subscribeMessage = session.textMessage(subscriptionMessage);
 
                     // 메시지 보내기
