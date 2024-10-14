@@ -19,10 +19,9 @@ configurations {
         extendsFrom annotationProcessor
     }
 
-
-
     all {
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+        exclude group: 'ch.qos.logback', module: 'logback-classic'
     }
 }
 
@@ -49,8 +48,8 @@ dependencies {
     // LOGGING
     implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 
-    // LOGGING ASYNC
-    implementation 'com.lmax:disruptor:3.4.4'
+//    // LOGGING ASYNC
+//    implementation 'com.lmax:disruptor:3.4.4'
 
     // MONITORING
     implementation 'org.springframework.boot:spring-boot-starter-actuator'

@@ -11,13 +11,13 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
-public class TradingApplication {
-    static final Logger LOGGER = LoggerFactory.getLogger(TradingApplication.class);
+public class IndicatorApplication {
+    static final Logger LOGGER = LoggerFactory.getLogger(IndicatorApplication.class);
 
 
     private final Map<Class, IndicatorStrategy> strategyMap;
 
-    public TradingApplication(List<IndicatorStrategy> strategies) {
+    public IndicatorApplication(List<IndicatorStrategy> strategies) {
         // 각 전략을 Map에 저장, 클래스 이름을 key로 사용
         this.strategyMap = strategies.stream()
                 .collect(Collectors.toMap(s -> s.getClass(), s -> s));

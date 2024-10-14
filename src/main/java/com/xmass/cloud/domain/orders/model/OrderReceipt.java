@@ -2,7 +2,9 @@ package com.xmass.cloud.domain.orders.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.ToString;
 
+@ToString
 @Data
 public class OrderReceipt {
     @JsonProperty("uuid")

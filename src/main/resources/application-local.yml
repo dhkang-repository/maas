@@ -1,3 +1,6 @@
+application:
+    target: SHIB
+
 spring:
     application:
         name: cloud
